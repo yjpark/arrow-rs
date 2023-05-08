@@ -259,7 +259,11 @@ fn infer_reader_schema_with_csv_options<R: Read>(
     let max_records = roptions.max_read_records.unwrap_or(usize::MAX);
     while records_count < max_records {
         if !csv_reader.read_record(&mut record).map_err(map_csv_error)? {
+            /* yjpark changes begin
             break;
+             */
+            continue;
+            /* yjpark changes end */
         }
         records_count += 1;
 
